@@ -1,4 +1,8 @@
 
-exports.authPost = function(req, res, next) {
-    res.send('log in route not implemented');
+exports.post_login = function(req, res, next) {
+    res.json({message: 'login'});
+}
+
+exports.post_register = function(req, res, next) {
+    res.json({message: 'register'});
 }
