@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/api/login', authController.post_login);
 
-router.post('/api/register', authController.post_register);
+router.post('/api/register', cors(), authController.post_register);
 
 /* Post routes */
 router.post('/api/post/create', postController.post_create);
