@@ -10,7 +10,15 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+require('dotenv').config();
+
 app.use(cors());
+
+var mongoose = require('mongoose');
+var mongoDB = process.env.DB_URL;
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.use(logger('dev'));
