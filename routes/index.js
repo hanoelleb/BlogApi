@@ -16,12 +16,11 @@ router.post('/api/register', authController.post_register);
 /* Post routes */
 router.post('/api/post/create', postController.post_create);
 
-router.post('/api/post/edit', postController.post_update);
+router.post('/api/post/:id/edit', postController.post_update);
 
-router.post('/api/post/remove', postController.post_delete);
+router.post('/api/post/:id/remove', postController.post_delete);
 
-router.get('/api/post', postController.post_list);
+router.get('/api/posts', postController.post_list);
 
 router.get('/api/post/:id', postController.post_detail);                                                         
-
 module.exports = router;
