@@ -28,5 +28,5 @@ exports.post_register = function(req, res, next) {
            });
 
         res.json({message: 'register'});
-    }
+    });
 }
