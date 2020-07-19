@@ -12,10 +12,7 @@ var app = express();
 
 require('dotenv').config();
 
-app.use(cors({
-    origin: ['http://localhost:3000'],
-    credentials: true
-}));
+app.use(cors());
 
 var mongoose = require('mongoose');
 var mongoDB = process.env.DB_URL;
@@ -32,11 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-app.use(cors({
-    origin: ['http://localhost:3000'],
-    credentials: true
-}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
