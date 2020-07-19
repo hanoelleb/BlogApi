@@ -12,7 +12,10 @@ var app = express();
 
 require('dotenv').config();
 
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    credentials: true
+}));
 
 var mongoose = require('mongoose');
 var mongoDB = process.env.DB_URL;
