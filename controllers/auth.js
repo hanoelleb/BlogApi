@@ -4,5 +4,6 @@ exports.post_login = function(req, res, next) {
 }
 
 exports.post_register = function(req, res, next) {
+    console.log(req.body.username);
     res.json({message: 'register'});
 }
