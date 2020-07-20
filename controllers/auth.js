@@ -1,11 +1,31 @@
 var bcrypt = require('bcryptjs');
+var jwt = require('jsonwebtoken');
+var passport = require('passport');
+
+require('../passport');
+
 var User = require('../models/user');
+
+require('dotenv').config();
 
 exports.post_login = function(req, res, next) {
     const username = req.body.username;
     const password = req.body.password;
 
-    res.json({message: 'login'});
+    passport.authenticate('local', {session: false}, (err, user, info) => {
+	if (info) {console.log(info.msg)}
+	if (err) { return next(err); }
+        if (!user) {
+            return res.status(400).json({
+                message: 'user not found',
+                user: user
+            });
+        }  req.login(user, {session: false}, (err) => {
+           if (err) {res.send(err);}
+	   const token = jwt.sign({user}, process.env.JWT_KEY);
+           return res.json({user, token});
+        });
+    })(req, res);
 }
 
 exports.post_register = async function(req, res, next) {
@@ -29,5 +49,4 @@ exports.post_register = async function(req, res, next) {
             res.status(400).json({ error })
         }
     });
-    //res.json({message: 'register'});
 }
