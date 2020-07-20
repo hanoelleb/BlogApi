@@ -8,7 +8,7 @@ exports.post_login = function(req, res, next) {
     res.json({message: 'login'});
 }
 
-exports.post_register = function(req, res, next) {
+exports.post_register = async function(req, res, next) {
     const uname = req.body.username;
     const pword = req.body.password;
 
@@ -20,11 +20,14 @@ exports.post_register = function(req, res, next) {
              password: hashedPassword
 	  }
 	);
-	
-	user.save(function(err) {
-             if (err) {return next(err)}
-	     else {res.json({message: 'register'});}
-        });
+        try {	
+	    user.save(function(err) {
+                if (err) {return next(err)}
+	        else {res.json({message: 'register'});}
+            });
+	} catch (error) {
+            res.status(400).json({ error })
+        }
     });
     //res.json({message: 'register'});
 }
