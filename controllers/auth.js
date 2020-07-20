@@ -22,8 +22,9 @@ exports.post_register = function(req, res, next) {
 	);
 	
 	user.save(function(err) {
-               if (err) {return next(err)}
-           });
+             if (err) {return next(err)}
+	     else {res.json({message: 'register'});}
+        });
     });
-    res.json({message: 'register'});
+    //res.json({message: 'register'});
 }
