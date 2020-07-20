@@ -1,5 +1,4 @@
-var bcrypt = require('bcrypt');
-
+var bcrypt = require('bcryptjs');
 var User = require('../models/user');
 
 exports.post_login = function(req, res, next) {
@@ -15,7 +14,7 @@ exports.post_register = function(req, res, next) {
 
     bcrypt.hash(pword, 10, (err, hashedPassword) => {
         if (err) { return next(err); }
-        var user = new User(
+        const user = new User(
 	  {
              username: uname,
              password: hashedPassword
@@ -23,10 +22,8 @@ exports.post_register = function(req, res, next) {
 	);
 	
 	user.save(function(err) {
-               if (err) {return next(err)};
-               res.redirect('/blog');
+               if (err) {return next(err)}
            });
-
-        res.json({message: 'register'});
     });
+    res.json({message: 'register'});
 }
