@@ -12,6 +12,7 @@ var app = express();
 
 require('dotenv').config();
 
+app.options('*', cors());
 app.use(cors());
 
 var mongoose = require('mongoose');
