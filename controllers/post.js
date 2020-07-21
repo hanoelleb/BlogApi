@@ -1,5 +1,26 @@
 
+var Post = require('../models/post');
+
 exports.post_create = function(req,res,next) {
+    var postTitle = req.body.title;
+    var postContent = req.body.content;
+
+    const post = new Post(
+      {
+	  title: postTitle,
+	  content: postContent
+      }
+    );
+
+    try {
+        post.save(function(err) {
+            if (err) {return next(err)}
+            else {res.json({message: 'posted'});}
+        });
+    } catch (error) {
+        res.status(400).json({ error })
+    }
+
     res.json({message: 'create post'})
 }
 

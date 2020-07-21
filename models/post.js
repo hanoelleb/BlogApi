@@ -7,7 +7,7 @@ var PostSchema = new Schema(
   {
       title: {type: String, required: true},
       post_date: {type: Date},
-      images: [ {data: Buffer, contentType: String} ]
+      images: [ {data: Buffer, contentType: String} ],
       content: {type: String},
       video: {type: String},
   }
