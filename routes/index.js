@@ -16,10 +16,14 @@ router.post('/api/login', authController.post_login);
 
 router.post('/api/register', authController.post_register);
 
+var myLogger = function (req, res, next) {
+  console.log('LOGGED')
+  next()
+}
 /* Post routes */
 
 
-router.post('/api/post/create', 
+router.post('/api/post/create',
     passport.authenticate('jwt', {session: false}),
     postController.post_create);
 

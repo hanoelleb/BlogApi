@@ -29,17 +29,20 @@ passport.use(
 );
 
 passport.use(new JWTStrategy({
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey: process.env.JWT_KEY
-  },
-  function (jwtPayload, cb) {
-  //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
-        return UserModel.findOneById(jwtPayload.id)
+        jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
+        secretOrKey   : process.env.JWT_KEY
+    },
+    function (jwtPayload, cb) {
+	console.log("im a fucking idiot");
+        return User.findById(jwtPayload.id)
             .then(user => {
-                return cb(null, user);
+		console.log("me find it but still fucking dumb");
+                return cb(null, {user});
             })
             .catch(err => {
+		console.log("me stupiddd");
                 return cb(err);
             });
+	//return cb(null);
     }
 ));
