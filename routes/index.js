@@ -17,6 +17,8 @@ router.post('/api/login', authController.post_login);
 router.post('/api/register', authController.post_register);
 
 /* Post routes */
+
+
 router.post('/api/post/create', 
     passport.authenticate('jwt', {session: false}),
     postController.post_create);
