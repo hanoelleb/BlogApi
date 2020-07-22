@@ -19,7 +19,7 @@ exports.post_create = function(req,res,next) {
             else {res.json({message: 'posted'});}
         });
     } catch (error) {
-        res.status(400).json({ error })
+        res.status(400).json({ message: error.toString() })
     }
 }
 
