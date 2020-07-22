@@ -9,6 +9,7 @@ var User = require('../models/user');
 require('dotenv').config();
 
 exports.post_login = function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
     const username = req.body.username;
     const password = req.body.password;
 
@@ -22,7 +23,7 @@ exports.post_login = function(req, res, next) {
             });
         }  req.login(user, {session: false}, (err) => {
            if (err) {res.send(err);}
-	   const token = jwt.sign({user}, process.env.JWT_KEY);
+	   const token = 'JWT ' + jwt.sign({user}, process.env.JWT_KEY);
            return res.json({user, token});
         });
     })(req, res);

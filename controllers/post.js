@@ -4,7 +4,7 @@ var Post = require('../models/post');
 exports.post_create = function(req,res,next) {
     var postTitle = req.body.title;
     var postContent = req.body.content;
-
+    console.log('got title and content');
     const post = new Post(
       {
 	  title: postTitle,
@@ -12,12 +12,14 @@ exports.post_create = function(req,res,next) {
 	  post_date: new Date(),
       }
     );
-
+    console.log('made post');
     post.save(function(err) {
         if (err) {
             return next(err);
 	}
-        else {res.json({message: 'posted'});}
+        else {
+	    res.json({message: 'posted'});
+	}
     });
 }
 
