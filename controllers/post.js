@@ -8,7 +8,8 @@ exports.post_create = function(req,res,next) {
     const post = new Post(
       {
 	  title: postTitle,
-	  content: postContent
+	  content: postContent,
+	  post_date: new Date(),
       }
     );
 
@@ -20,8 +21,6 @@ exports.post_create = function(req,res,next) {
     } catch (error) {
         res.status(400).json({ error })
     }
-
-    res.json({message: 'create post'})
 }
 
 exports.post_update = function(req,res,next) {
