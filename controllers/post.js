@@ -13,14 +13,12 @@ exports.post_create = function(req,res,next) {
       }
     );
 
-    try {
-        post.save(function(err) {
-            if (err) {return next(err)}
-            else {res.json({message: 'posted'});}
-        });
-    } catch (error) {
-        res.status(400).json({ message: error.toString() })
-    }
+    post.save(function(err) {
+        if (err) {
+            res.status(400).json({ message: error.toString()});
+	}
+        else {res.json({message: 'posted'});}
+    });
 }
 
 exports.post_update = function(req,res,next) {
