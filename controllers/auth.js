@@ -9,7 +9,7 @@ var User = require('../models/user');
 require('dotenv').config();
 
 exports.post_login = function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    //res.header("Access-Control-Allow-Origin", "*");
     const username = req.body.username;
     const password = req.body.password;
 
