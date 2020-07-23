@@ -32,7 +32,12 @@ exports.post_delete = function(req,res,next) {
 }
 
 exports.post_list = function(req,res,next) {
-    res.json({message: 'post list'})
+    post.find()
+        .sort([['date', 'ascending']]) 
+	.exec( function(err, post_list) {
+	    if (err) return next(err);
+	    res.json({posts: {post_list} })
+	});
 }
 
 exports.post_detail = function(req,res,next) {
