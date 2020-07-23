@@ -32,8 +32,8 @@ exports.post_delete = function(req,res,next) {
 }
 
 exports.post_list = function(req,res,next) {
-    post.find()
-        .sort([['date', 'ascending']]) 
+    Post.find()
+        .sort([['post_date', 'descending']]) 
 	.exec( function(err, post_list) {
 	    if (err) return next(err);
 	    res.json({posts: {post_list} })
