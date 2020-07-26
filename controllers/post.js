@@ -25,17 +25,24 @@ exports.post_create = function(req,res,next) {
 
 exports.post_update = function(req,res,next) {
     var id = req.params.id;
+    console.log('in update: ' + id);
     var postTitle = req.body.title;
     var postContent = req.body.content;
 
+    console.log('title: ' + postTitle);
+
     var post = new Post({
+      _id: id,
       title: postTitle,
       content: postContent,
     });
 
     Post.findByIdAndUpdate(id, post, {},
         function(err){ 
-	    if(err){return next(err);}
+	    if(err) {
+		console.log(err.message);
+                return next(err);
+	    }
             res.json({message: 'updated'});
 	});
 }
