@@ -25,11 +25,9 @@ exports.post_create = function(req,res,next) {
 
 exports.post_update = function(req,res,next) {
     var id = req.params.id;
-    console.log('in update: ' + id);
     var postTitle = req.body.title;
     var postContent = req.body.content;
 
-    console.log('title: ' + postTitle);
 
     var post = new Post({
       _id: id,
