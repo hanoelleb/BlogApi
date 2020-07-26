@@ -33,14 +33,11 @@ passport.use(new JWTStrategy({
         secretOrKey   : process.env.JWT_KEY
     },
     function (jwtPayload, cb) {
-	console.log("im a fucking idiot");
         return User.findById(jwtPayload.id)
             .then(user => {
-		console.log("me find it but still fucking dumb");
                 return cb(null, {user});
             })
             .catch(err => {
-		console.log("me stupiddd");
                 return cb(err);
             });
 	//return cb(null);

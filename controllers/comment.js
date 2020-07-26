@@ -30,6 +30,8 @@ exports.comment_create = function(req, res, next) {
 exports.comment_delete = function(req, res, next) {
     var cid = req.params.cid;
 
+    console.log('cid: ' + cid);
+
     Comment.findByIdAndRemove(cid, function deleteComment(err) {
         if (err) { return next(err); }
 	res.json({message: 'comment removed'});
