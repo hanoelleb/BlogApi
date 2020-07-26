@@ -1,5 +1,6 @@
-
+var async = require('async');
 var Post = require('../models/post');
+var Comment = require('../models/post');
 
 exports.post_create = function(req,res,next) {
     var postTitle = req.body.title;
@@ -24,11 +25,27 @@ exports.post_create = function(req,res,next) {
 }
 
 exports.post_update = function(req,res,next) {
-    res.json({message: 'update post'})
+    var id = req.body.id;
+    var postTitle = req.body.title;
+    var postContent = req.body.content;
+
+    var post = new Post({
+      title: postTitle,
+      content: postContent,
+    });
+
+    Post.findByIdAndUpdate(id, post, {},
+        function(err){ 
+	    if(err){return next(err);}
+	});
 }
 
 exports.post_delete = function(req,res,next) {
-    res.json({message: 'delete post'})
+    var id = req.body.id;
+
+    Post.findByIdAndRemove(id, function deleteBook(err) {
+        if (err) { return next(err)}
+    });
 }
 
 exports.post_list = function(req,res,next) {
@@ -41,5 +58,17 @@ exports.post_list = function(req,res,next) {
 }
 
 exports.post_detail = function(req,res,next) {
-    res.json({message: 'post detail'})
+    var id = req.body.id;
+
+    async.parallel({
+        post: function(callback){ Post.findById(id) },
+	comments: function(callback){ Comment.find({'post': id}) }, 
+    }, function(err, results) {
+        if (err) { return next(err); }
+	if (results.post == null) //no post
+	    res.json({message: "post not found"});
+	var thepost = results.post;
+	var thecomments = results.comments;
+	res.json({post: {thepost}, comments: {thecomments}});
+    });
 }

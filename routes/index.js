@@ -6,22 +6,20 @@ require('../passport');
 
 var authController = require('../controllers/auth');
 var postController = require('../controllers/post');
+var commentController = require('../controllers/comment');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.redirect('/api');
 });
 
+/* Auth routes */
+
 router.post('/api/login', authController.post_login);
 
 router.post('/api/register', authController.post_register);
 
-var myLogger = function (req, res, next) {
-  console.log('LOGGED')
-  next()
-}
 /* Post routes */
-
 
 router.post('/api/post/create',
     passport.authenticate('jwt', {session: false}),
@@ -37,5 +35,14 @@ router.post('/api/post/:id/remove',
 
 router.get('/api/posts', postController.post_list);
 
-router.get('/api/post/:id', postController.post_detail);                                                         
+router.get('/api/post/:id', postController.post_detail);                       
+
+/* Comment routes */
+
+router.post('/api/post/:id/comment/',
+   commentController.comment_create);
+
+router.post('/api/post/:id/comment/:id/delete',
+   commentController.comment_delete);
+
 module.exports = router;
