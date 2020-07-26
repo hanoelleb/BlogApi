@@ -78,6 +78,6 @@ exports.post_detail = function(req,res,next) {
 	}
 	var thepost = results.post;
 	var thecomments = results.comments;
-	res.json({post: {thepost}, comments: {thecomments}});
+	res.json({post: thepost, comments: thecomments});
     });
 }
