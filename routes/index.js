@@ -43,6 +43,7 @@ router.post('/api/post/:id/comment/',
    commentController.comment_create);
 
 router.post('/api/post/:id/comment/:id/delete',
+   passport.authenticate('jwt', {session: false}),
    commentController.comment_delete);
 
 module.exports = router;
