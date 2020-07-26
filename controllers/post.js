@@ -24,7 +24,7 @@ exports.post_create = function(req,res,next) {
 }
 
 exports.post_update = function(req,res,next) {
-    var id = req.body.id;
+    var id = req.params.id;
     var postTitle = req.body.title;
     var postContent = req.body.content;
 
@@ -36,14 +36,16 @@ exports.post_update = function(req,res,next) {
     Post.findByIdAndUpdate(id, post, {},
         function(err){ 
 	    if(err){return next(err);}
+            res.json({message: 'updated'});
 	});
 }
 
 exports.post_delete = function(req,res,next) {
-    var id = req.body.id;
+    var id = req.params.id;
 
     Post.findByIdAndRemove(id, function deleteBook(err) {
         if (err) { return next(err)}
+        res.json({message: 'removed'});
     });
 }
 
@@ -65,10 +67,8 @@ exports.post_detail = function(req,res,next) {
             .exec(callback) }, 
     }, function(err, results) {
         if (err) { 
-	    console.log('err');
 	    return next(err); }
 	if (results.post == null) { //no post
-	    console.log('post not found');
 	    res.json({message: "post not found"});
 	}
 	var thepost = results.post;
