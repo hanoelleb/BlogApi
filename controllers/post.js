@@ -5,7 +5,6 @@ var Comment = require('../models/post');
 exports.post_create = function(req,res,next) {
     var postTitle = req.body.title;
     var postContent = req.body.content;
-    console.log('got title and content');
     const post = new Post(
       {
 	  title: postTitle,

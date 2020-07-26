@@ -42,7 +42,7 @@ router.get('/api/post/:id', postController.post_detail);
 router.post('/api/post/:id/comment/',
    commentController.comment_create);
 
-router.post('/api/post/:id/comment/:id/delete',
+router.post('/api/post/:id/comment/:cid/delete',
    passport.authenticate('jwt', {session: false}),
    commentController.comment_delete);
 

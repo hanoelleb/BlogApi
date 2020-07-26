@@ -4,10 +4,14 @@ var User = require('../models/user');
 require('dotenv').config();
 //comments have post, date, author, content
 exports.comment_create = function(req, res, next) {
+
+    console.log('check1');
     var _id = req.params.id;
     var _date = new Date();
+    console.log('check2');
     var _author = req.body.author;
     var _content = req.body.content;
+    console.log('check3');
 
     var comment = new Comment(
       {
@@ -18,8 +22,12 @@ exports.comment_create = function(req, res, next) {
       }
     );
 
+    console.log('comment: ' + comment);
+
     comment.save( function(err) {
-        if (err) {return next(err);}
+        if (err) {
+            console.log('err: ' + err.message);
+            return next(err);}
 	else { res.json({message: 'comment added'}) };
     });
 }
