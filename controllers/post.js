@@ -1,6 +1,7 @@
 var async = require('async');
+var mongoose = require('mongoose');
 var Post = require('../models/post');
-var Comment = require('../models/post');
+var Comment = require('../models/comment');
 
 exports.post_create = function(req,res,next) {
     var postTitle = req.body.title;
@@ -66,9 +67,9 @@ exports.post_detail = function(req,res,next) {
     var id = req.params.id;
    
     async.parallel({
-        post: function(callback){ Post.findById(id).exec(callback) },
-	comments: function(callback){ Comment.find({'post': id})
-            .exec(callback) }, 
+        post: function(callback){ Post.findById(id).exec(callback); },
+	comments: function(callback){ Comment.find({'post' : id})
+            .exec(callback); },
     }, function(err, results) {
         if (err) { 
 	    return next(err); }
@@ -77,6 +78,7 @@ exports.post_detail = function(req,res,next) {
 	}
 	var thepost = results.post;
 	var thecomments = results.comments;
+	console.log(results);
 	res.json({post: thepost, comments: thecomments});
     });
 }
