@@ -58,14 +58,19 @@ exports.post_list = function(req,res,next) {
 
 exports.post_detail = function(req,res,next) {
     var id = req.params.id;
-
+   
     async.parallel({
-        post: function(callback){ Post.findById(id) },
-	comments: function(callback){ Comment.find({'post': id}) }, 
+        post: function(callback){ Post.findById(id).exec(callback) },
+	comments: function(callback){ Comment.find({'post': id})
+            .exec(callback) }, 
     }, function(err, results) {
-        if (err) { return next(err); }
-	if (results.post == null) //no post
+        if (err) { 
+	    console.log('err');
+	    return next(err); }
+	if (results.post == null) { //no post
+	    console.log('post not found');
 	    res.json({message: "post not found"});
+	}
 	var thepost = results.post;
 	var thecomments = results.comments;
 	res.json({post: {thepost}, comments: {thecomments}});
