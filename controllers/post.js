@@ -13,7 +13,6 @@ exports.post_create = function(req,res,next) {
 	  post_date: new Date(),
       }
     );
-    console.log('made post');
     post.save(function(err) {
         if (err) {
             return next(err);
@@ -58,7 +57,7 @@ exports.post_list = function(req,res,next) {
 }
 
 exports.post_detail = function(req,res,next) {
-    var id = req.body.id;
+    var id = req.params.id;
 
     async.parallel({
         post: function(callback){ Post.findById(id) },
